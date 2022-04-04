@@ -1,10 +1,15 @@
 from typing import Dict
+from fastapi import HTTPException
+from starlette.status import HTTP_400_BAD_REQUEST
 
 
 def get_order(data: str) -> Dict:
     raw_data = data.strip().split(",")
     if len(raw_data) < 4:
-        raise Exception(f"Input for order: {data} is invalid!")
+        raise HTTPException(
+            status_code=HTTP_400_BAD_REQUEST,
+            detail=f"Input for order: {data} is invalid!",
+        )
     order = {
         "restaurant_id": raw_data[0],
         "time": raw_data[1],
@@ -17,7 +22,10 @@ def get_order(data: str) -> Dict:
 def get_restaurant_capacity_and_inventory(data: str) -> Dict:
     raw_data = data.strip().split(",")
     if len(raw_data) != 12:
-        raise Exception("Input for restaurant capacity and inventory is invalid!")
+        raise HTTPException(
+            status_code=HTTP_400_BAD_REQUEST,
+            detail="Input for restaurant capacity and inventory is invalid!",
+        )
     restaurant_capacity_and_inventory = {
         "restaurant_id": raw_data[0],
         "cooking_ability": raw_data[1].replace("C", ""),
