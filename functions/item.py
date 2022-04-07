@@ -35,6 +35,7 @@ class Item:
         self.required_lettuce = None
         self.required_tomato = None
         self.required_veggie_patties = None
+        self.duration = None
 
     def set_cooking_finished_time(
         self, cooker_available_time: datetime, cooking_time: int
@@ -99,3 +100,9 @@ class Item:
         else:
             self.inventory_available = True
         return self.inventory_available
+
+    def get_duration(self):
+        self.duration = int(
+            (self.packaging_finished_time - self.order_time).total_seconds() / 60
+        )
+        return self.duration
