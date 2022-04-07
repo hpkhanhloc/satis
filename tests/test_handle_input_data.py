@@ -80,38 +80,6 @@ def test_handle_input_data():
     assert result == expected
 
 
-def test_process_orders():
-    body = {
-        "input_data": "R1,4C,1,3A,2,2P,1,100,200,200,100,100\nR1,2020-12-08 19:15:31,O1,BLT,LT,VLT"
-    }
-    res = client.post("/orders", json=body)
-    assert res.status_code == HTTP_200_OK
-    assert res.json() == {
-        "restaurant_capacity_and_inventory": {
-            "restaurant_id": "R1",
-            "cooking_ability": "4",
-            "cooking_time": "1",
-            "assembling_ability": "3",
-            "assembling_time": "2",
-            "package_ability": "2",
-            "package_time": "1",
-            "burger_patties": "100",
-            "lettuce": "200",
-            "tomato": "200",
-            "veggie_patties": "100",
-            "bacon": "100",
-        },
-        "orders": [
-            {
-                "items": ["BLT", "LT", "VLT"],
-                "order_id": "O1",
-                "restaurant_id": "R1",
-                "time": "2020-12-08 19:15:31",
-            }
-        ],
-    }
-
-
 def test_process_orders_with_invalid_order():
     body = {
         "input_data": "R1,4C,1,3A,2,2P,1,100,200,200,100,100\nR1,2020-12-08 19:15:31,O1,BLT,LT,VLT\nR1,2020-12-08 19:15:32,O2"
