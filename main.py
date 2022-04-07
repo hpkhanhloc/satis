@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from fastapi import FastAPI
 from functions.handle_input_data import handle_input_data
-from functions.handle_orders import Restaurant, Order
+from functions.restaurant import Restaurant
 from pydantic import BaseModel
 from starlette.status import HTTP_200_OK
 
