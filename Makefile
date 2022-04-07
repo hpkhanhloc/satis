@@ -5,3 +5,7 @@ install-requirements:
 .PHONY: run-api-locally
 run-api-locally: install-requirements
 	uvicorn main:app --reload
+
+.PHONY: test
+test:
+	pytest -vv
